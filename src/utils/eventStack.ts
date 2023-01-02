@@ -1,16 +1,17 @@
+import { Container } from "pixi.js";
 import GameEvent from "../events/gameEvent";
 
 export default class EventStack {
   static instance: EventStack;
   stack: GameEvent[];
 
-  private constructor() {
+  private constructor(public container: Container) {
     this.stack = [];
   }
 
-  public static getEventStack() {
+  public static getEventStack(container: Container) {
     if (!EventStack.instance) {
-      EventStack.instance = new EventStack();
+      EventStack.instance = new EventStack(container);
     }
     return EventStack.instance;
   }
@@ -18,6 +19,7 @@ export default class EventStack {
   pushEvent(event: GameEvent) {
     this.stack.push(event);
     if (event.onEnter) {
+      this.container.addChild(event.container);
       event.onEnter();
     }
   }
@@ -28,6 +30,7 @@ export default class EventStack {
       if (gameEvent?.onExit) {
         gameEvent.onExit();
       }
+      this.container.removeChild(gameEvent!.container);
       return gameEvent;
     } else {
       throw Error("Can't pop from an empty stack");

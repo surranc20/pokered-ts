@@ -2,4 +2,6 @@ export enum Constants {
   RESOLUTION_X = 240,
   RESOLUTION_Y = 160,
   MILLISECS_IN_A_SEC = 1000,
+  X_TILE_SIZE = 16,
+  Y_TILE_SIZE = 16,
 }

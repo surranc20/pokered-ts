@@ -1,4 +1,4 @@
-import { Container, Loader } from "pixi.js";
+import { Container } from "pixi.js";
 import EventStack from "./eventStack";
 import Overworld from "../events/Overworld";
 
@@ -6,9 +6,9 @@ export default class GameManager {
   eventStack: any;
   container: Container;
   constructor() {
-    this.eventStack = EventStack.getEventStack();
-    this.eventStack.pushEvent(new Overworld());
     this.container = new Container();
+    this.eventStack = EventStack.getEventStack(this.container);
+    this.eventStack.pushEvent(new Overworld());
   }
 
   update() {
@@ -18,11 +18,6 @@ export default class GameManager {
   }
 
   initialLoad(callback: Function) {
-    const loader = Loader.shared;
-    loader.add("pokemonSpritesheet", "/assets/pokemonSpritesheet.json");
-    loader.load(() => {
-      console.log("done loading");
-      callback();
-    });
+    callback();
   }
 }

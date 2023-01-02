@@ -42,6 +42,7 @@ export default class GameTicker {
   };
 
   private renderTick = () => {
-    requestAnimationFrame(this.renderCallback);
+    this.renderCallback();
+    requestAnimationFrame(this.renderTick);
   };
 }
