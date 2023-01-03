@@ -1,6 +1,7 @@
 import { Container } from "pixi.js";
 import EventStack from "./eventStack";
 import Overworld from "../events/Overworld";
+import Keyboard from "pixi.js-keyboard";
 
 export default class GameManager {
   eventStack: any;
@@ -12,6 +13,7 @@ export default class GameManager {
   }
 
   update() {
+    Keyboard.update();
     if (this.eventStack.stack.length > 0) {
       this.eventStack.peekEvent().update();
     }
