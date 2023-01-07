@@ -18,7 +18,9 @@ export default class Animated extends Drawable {
     this.frames = textures;
   }
 
-  startAnimation = () => (this.animating = true);
+  startAnimation() {
+    this.animating = true;
+  }
 
   endAnimation = () => (this.animating = false);
 

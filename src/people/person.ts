@@ -32,25 +32,4 @@ export default class Person extends Mobile {
     this.isEnemy = isEnemy;
     this.gender = gender;
   }
-
-  setTexturesFromCardinality() {
-    switch (this.cardinality) {
-      case Cardinality.NORTH:
-        this.frames = this.upTextures;
-        break;
-
-      case Cardinality.EAST:
-        this.frames = this.leftTextures;
-        break;
-
-      case Cardinality.WEST:
-        this.frames = this.leftTextures;
-        break;
-
-      case Cardinality.SOUTH:
-        this.frames = this.downTextures;
-        break;
-    }
-    this.getTexture();
-  }
 }
