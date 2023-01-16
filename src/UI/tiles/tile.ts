@@ -3,7 +3,10 @@ import Drawable from "../drawable";
 import { Constants } from "../../enums/constants";
 
 export default class Tile extends Drawable {
-  constructor(tileInfo: any, x: number, y: number) {
+  tilemapRow: number;
+  tilemapCol: number;
+  isCollidable: boolean;
+  constructor(tileInfo: any, tilemapCol: number, tilemapRow: number) {
     const tileset = tileInfo.tileBackground.tileSetName.replace(".png", "");
     const tilesetRow = tileInfo.tileBackground.rowNum;
     const tilesetCol = tileInfo.tileBackground.columnNum;
@@ -17,6 +20,12 @@ export default class Tile extends Drawable {
       );
     }
 
-    super(texture, [x * Constants.X_TILE_SIZE, y * Constants.Y_TILE_SIZE]);
+    super(texture, [
+      tilemapCol * Constants.X_TILE_SIZE,
+      tilemapRow * Constants.Y_TILE_SIZE,
+    ]);
+    this.tilemapCol = tilemapCol;
+    this.tilemapRow = tilemapRow;
+    this.isCollidable = !!tileInfo.collidable;
   }
 }

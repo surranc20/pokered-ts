@@ -12,9 +12,5 @@ export default class Mobile extends Animated {
     public currentFrame = 0
   ) {
     super(textures, position);
-
-    if (this.cardinality === Cardinality.EAST) {
-      this.flip = true;
-    }
   }
 }

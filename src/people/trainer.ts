@@ -1,7 +1,7 @@
 import { Cardinality } from "../enums/cardinality";
 import Person from "./person";
 import { WalkingState } from "../enums/walkingState";
-import { flipSpriteLeft, flipSpriteRight } from "../utils/flipSprite";
+import Tile from "../UI/tiles/tile";
 
 export default class Trainer extends Person {
   walkingState = WalkingState.STATIONARY;
@@ -20,7 +20,7 @@ export default class Trainer extends Person {
     this.tilePixelOffset = 0;
   }
 
-  update() {
+  update(_tileAdjacencyMap?: Map<Cardinality, Tile>) {
     switch (this.walkingState) {
       case WalkingState.STATIONARY:
         if (this.currentFrame !== 0) {
@@ -45,7 +45,7 @@ export default class Trainer extends Person {
         break;
     }
 
-    super.update(16.67);
+    super.update();
   }
 
   setTexturesFromCardinality() {
@@ -56,12 +56,10 @@ export default class Trainer extends Person {
 
       case Cardinality.EAST:
         this.frames = this.leftTextures;
-        flipSpriteRight(this);
         break;
 
       case Cardinality.WEST:
         this.frames = this.leftTextures;
-        flipSpriteLeft(this);
         break;
 
       case Cardinality.SOUTH:
@@ -78,12 +76,14 @@ export default class Trainer extends Person {
         break;
       case Cardinality.EAST:
         this.x += 1;
+        this.flipRight();
         break;
       case Cardinality.SOUTH:
         this.y += 1;
         break;
       case Cardinality.WEST:
         this.x -= 1;
+        this.flipLeft();
         break;
     }
     this.tilePixelOffset += 1;

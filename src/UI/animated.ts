@@ -8,7 +8,6 @@ export default class Animated extends Drawable {
   constructor(
     textures: Texture[],
     position: [number, number],
-    public flip = false,
     public instant = false,
     public updatesPerFrame = 10,
     public animating = true,
@@ -24,7 +23,7 @@ export default class Animated extends Drawable {
 
   endAnimation = () => (this.animating = false);
 
-  update(_elapsedTime: number) {
+  update() {
     if (!this.animating) return;
 
     this._updatesSinceLastFrame += 1;
@@ -38,6 +37,6 @@ export default class Animated extends Drawable {
   }
 
   getTexture() {
-    this.texture = this.frames[this.currentFrame];
+    this.sprite.texture = this.frames[this.currentFrame];
   }
 }
