@@ -17,7 +17,7 @@ export default class Player extends Trainer {
     "KeyD",
     "ArrowRight",
   ];
-  // [12, 16]
+
   private constructor() {
     const [x, y] = [12 * Constants.X_TILE_SIZE, 16 * Constants.Y_TILE_SIZE - 6];
     super("player", [x, y], Cardinality.SOUTH, false, "male");
@@ -45,6 +45,7 @@ export default class Player extends Trainer {
           break;
       }
     }
+
     super.update(tileAdjacencyMap);
   }
 
@@ -65,7 +66,7 @@ export default class Player extends Trainer {
     if (!tileAdjacencyMap.get(this.cardinality)?.isCollidable) {
       this.walkingState = WalkingState.START_WALKING;
     } else {
-      // TODO: Play wall sound
+      // TODO: Play wall sound. Probably should do some debouncing
     }
   }
 }
