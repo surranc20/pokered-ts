@@ -59,18 +59,6 @@ export default class Pokemon extends Drawable {
     this.held_item = null;
   }
 
-  private getPokemonTypesFromJson() {
-    const pokemonTypes = [];
-    const pokemonInfo =
-      PokemonInfoJson[this.pokemonName as keyof typeof PokemonInfoJson];
-
-    for (const pokemonType of pokemonInfo.type) {
-      const possibleType = PokemonType[pokemonType as keyof typeof PokemonType];
-      pokemonTypes.push(possibleType);
-    }
-    return pokemonTypes;
-  }
-
   private getPokemonBaseStatsFromJson() {
     const pokemonInfo =
       PokemonInfoJson[this.pokemonName as keyof typeof PokemonInfoJson];
@@ -84,6 +72,18 @@ export default class Pokemon extends Drawable {
       pokemonInfo.base["Sp. Defense"],
       pokemonInfo.base.Speed
     );
+  }
+
+  private getPokemonTypesFromJson() {
+    const pokemonTypes = [];
+    const pokemonInfo =
+      PokemonInfoJson[this.pokemonName as keyof typeof PokemonInfoJson];
+
+    for (const pokemonType of pokemonInfo.type) {
+      const possibleType = PokemonType[pokemonType as keyof typeof PokemonType];
+      pokemonTypes.push(possibleType);
+    }
+    return pokemonTypes;
   }
 
   isAlive() {
