@@ -7,6 +7,7 @@ export default class TileMap {
   foregroundContainer = new Container();
   backgroundContainer = new Container();
   tileLookupMap = new Map();
+  mapDimensions!: number[];
   constructor(public levelName: string) {}
 
   async createTileMap() {
@@ -30,6 +31,8 @@ export default class TileMap {
         this.tileLookupMap.set(this.createLookupKeyFromColRow(x, y), tile);
       }
     }
+
+    this.mapDimensions = [tileMapArray[0].length, tileMapArray.length];
   }
 
   getTileFromColRow(col: number, row: number) {
@@ -38,12 +41,13 @@ export default class TileMap {
 
   getAdjacentTiles(tile: Tile) {
     const adjMap = new Map();
+    const [maxXTile, maxYTile] = this.getMapSize();
 
     for (const [cardinality, offset] of Cardinality.getCardinalityOffsetMap()) {
       const tileXPos = offset[0] + tile.tilemapCol;
       const tileYPos = offset[1] + tile.tilemapRow;
 
-      if (pointWithinBounds(tileXPos, tileYPos, 27, 18)) {
+      if (pointWithinBounds(tileXPos, tileYPos, maxXTile, maxYTile)) {
         adjMap.set(
           cardinality,
           this.tileLookupMap.get(
@@ -54,6 +58,13 @@ export default class TileMap {
     }
 
     return adjMap;
+  }
+
+  getMapSize() {
+    if (this.mapDimensions) {
+      return this.mapDimensions;
+    }
+    throw Error("Map not loaded. Can't get map size");
   }
 
   private createLookupKeyFromColRow(col: number, row: number) {
