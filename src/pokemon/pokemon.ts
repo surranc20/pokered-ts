@@ -10,6 +10,8 @@ import PokemonExpInfo from "./pokemonExpInfo";
 import PokemonInfoJson from "./pokemon.json";
 
 export default class Pokemon extends Drawable {
+  static ENEMY_POKEMON_POSITION: [number, number] = [148, 6];
+  static PLAYER_POKEMON_POSITION: [number, number] = [36, 48];
   pokemonName: string;
   enemy: boolean;
   gender: string;
@@ -37,7 +39,12 @@ export default class Pokemon extends Drawable {
     if (!texture) {
       throw Error(`Unable to load texture for ${pokemonName}`);
     }
-    super(texture, [36, 48]);
+
+    const pokemonPosition = enemy
+      ? Pokemon.ENEMY_POKEMON_POSITION
+      : Pokemon.PLAYER_POKEMON_POSITION;
+
+    super(texture, pokemonPosition);
 
     this.pokemonName = pokemonName;
     this.nickName = this.pokemonName.toUpperCase();
