@@ -2,12 +2,14 @@ import { Container, Loader } from "pixi.js";
 import Tile from "./tile";
 import { Cardinality } from "../../enums/cardinality";
 import { pointWithinBounds } from "../../utils/miscUtils";
+import PersonFactory from "../../people/personFactory";
 
 export default class TileMap {
   foregroundContainer = new Container();
   backgroundContainer = new Container();
   tileLookupMap = new Map();
-  mapDimensions!: number[];
+  mapDimensions = [0, 0];
+  trainers = new Map();
   constructor(public levelName: string) {}
 
   async createTileMap() {
@@ -33,6 +35,18 @@ export default class TileMap {
     }
 
     this.mapDimensions = [tileMapArray[0].length, tileMapArray.length];
+    this.addTrainersFromLevelData(levelData);
+  }
+
+  private addTrainersFromLevelData(levelData: any) {
+    for (const [index, trainerInfo] of levelData.mapInfo.people.entries()) {
+      const person = PersonFactory.createPersonFromTrainerInfo(trainerInfo);
+      if (this.trainers.has(person.name)) {
+        this.trainers.set(person.name + index, person);
+      } else {
+        this.trainers.set(person.name, person);
+      }
+    }
   }
 
   getTileFromColRow(col: number, row: number) {
@@ -69,5 +83,11 @@ export default class TileMap {
 
   private createLookupKeyFromColRow(col: number, row: number) {
     return `${col}, ${row}`;
+  }
+
+  addTrainersToContainer(container: Container) {
+    for (const [_, trainer] of this.trainers) {
+      container.addChild(trainer);
+    }
   }
 }

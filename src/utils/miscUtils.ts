@@ -26,3 +26,14 @@ export function debouncedResize() {
   scale = Math.max(scale - 1, 1);
   document.getElementById("main-body")!.style.transform = `scale(${scale})`;
 }
+
+export function getPersonPositionFromTileCoords(
+  coords: [number, number]
+): [number, number] {
+  return [
+    coords[0] * Constants.X_TILE_SIZE,
+    coords[1] * Constants.Y_TILE_SIZE - 8,
+  ];
+}
+
+//(pos[0] + self.x_offset) * self.TILE_SIZE, pos[1] * self.TILE_SIZE - 8)

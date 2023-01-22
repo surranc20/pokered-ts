@@ -16,8 +16,11 @@ export default class Overworld extends GameEvent {
 
     this.tileMap = new TileMap("indigo_center");
     await this.tileMap.createTileMap();
+
     this.player = Player.getPlayer();
     this.container.addChild(this.tileMap.backgroundContainer);
+
+    this.tileMap.addTrainersToContainer(this.container);
     this.container.addChild(this.player);
 
     // Setup "camera"

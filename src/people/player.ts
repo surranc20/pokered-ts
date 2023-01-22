@@ -20,7 +20,7 @@ export default class Player extends Trainer {
 
   private constructor() {
     const [x, y] = [12 * Constants.X_TILE_SIZE, 16 * Constants.Y_TILE_SIZE - 6];
-    super("player", [x, y], Cardinality.SOUTH, false, "male");
+    super("player", [x, y], Cardinality.NORTH, false, "male");
   }
 
   public static getPlayer(): Player {

@@ -18,18 +18,43 @@ export default class Person extends Mobile {
     gender = "male"
   ) {
     const upTextures =
-      Loader.shared.resources.trainer.spritesheet!.animations["player up"];
+      Loader.shared.resources.trainer.spritesheet!.animations[`${name} up`];
     super(upTextures, position, cardinality);
 
     this.upTextures = upTextures;
     this.downTextures =
-      Loader.shared.resources.trainer.spritesheet!.animations["player down"];
+      Loader.shared.resources.trainer.spritesheet!.animations[`${name} down`];
 
     this.leftTextures =
-      Loader.shared.resources.trainer.spritesheet!.animations["player left"];
+      Loader.shared.resources.trainer.spritesheet!.animations[`${name} left`];
 
     this.personName = name;
     this.isEnemy = isEnemy;
     this.gender = gender;
+
+    this.setTexturesFromCardinality();
+  }
+
+  setTexturesFromCardinality() {
+    switch (this.cardinality) {
+      case Cardinality.NORTH:
+        this.frames = this.upTextures;
+        break;
+
+      case Cardinality.EAST:
+        this.frames = this.leftTextures;
+        this.flipRight();
+        break;
+
+      case Cardinality.WEST:
+        this.frames = this.leftTextures;
+        this.flipLeft();
+        break;
+
+      case Cardinality.SOUTH:
+        this.frames = this.downTextures;
+        break;
+    }
+    this.getTexture();
   }
 }

@@ -48,27 +48,6 @@ export default class Trainer extends Person {
     super.update();
   }
 
-  setTexturesFromCardinality() {
-    switch (this.cardinality) {
-      case Cardinality.NORTH:
-        this.frames = this.upTextures;
-        break;
-
-      case Cardinality.EAST:
-        this.frames = this.leftTextures;
-        break;
-
-      case Cardinality.WEST:
-        this.frames = this.leftTextures;
-        break;
-
-      case Cardinality.SOUTH:
-        this.frames = this.downTextures;
-        break;
-    }
-    this.getTexture();
-  }
-
   private moveAPixelInCurrentDirection() {
     switch (this.cardinality) {
       case Cardinality.NORTH:
@@ -76,14 +55,12 @@ export default class Trainer extends Person {
         break;
       case Cardinality.EAST:
         this.x += 1;
-        this.flipRight();
         break;
       case Cardinality.SOUTH:
         this.y += 1;
         break;
       case Cardinality.WEST:
         this.x -= 1;
-        this.flipLeft();
         break;
     }
     this.tilePixelOffset += 1;

@@ -14,4 +14,12 @@ export namespace Cardinality {
       [Cardinality.WEST, [-1, 0]],
     ]);
   }
+
+  export function getCardinalityFromString(
+    cardinalityString: string
+  ): Cardinality {
+    return Cardinality[
+      cardinalityString.toUpperCase() as keyof typeof Cardinality
+    ] as Cardinality;
+  }
 }
