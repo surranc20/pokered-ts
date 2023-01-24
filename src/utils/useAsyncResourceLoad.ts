@@ -8,11 +8,14 @@ export const useAsyncResourceLoad = async (resources: Resources) => {
       loader.add(resourceName, `assets/tilesets/${resourceName}.json`);
     }
 
-    if (resources.spritesheets) {
-      for (const resourceName of resources.spritesheets) {
-        loader.add(resourceName, `assets/${resourceName}.json`);
-      }
+    for (const resourceName of resources.spritesheets) {
+      loader.add(resourceName, `assets/${resourceName}.json`);
     }
+
+    for (const trainerName of resources.trainers) {
+      loader.add(trainerName, `assets/trainers/${trainerName}.json`);
+    }
+
     loader.load();
     loader.onComplete.add(() => resolve());
     loader.onError.add(() => reject());

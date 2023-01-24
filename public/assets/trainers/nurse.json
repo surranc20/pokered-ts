@@ -1,0 +1,78 @@
+{
+  "frames": {
+    "nurse down 0": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 22
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 22
+      },
+      "sourceSize": {
+        "w": 16,
+        "h": 22
+      }
+    },
+    "nurse up 0": {
+      "frame": {
+        "x": 0,
+        "y": 22,
+        "w": 16,
+        "h": 22
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 22
+      },
+      "sourceSize": {
+        "w": 16,
+        "h": 22
+      }
+    },
+    "nurse left 0": {
+      "frame": {
+        "x": 0,
+        "y": 44,
+        "w": 16,
+        "h": 22
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 22
+      },
+      "sourceSize": {
+        "w": 16,
+        "h": 22
+      }
+    }
+  },
+  "animations": {
+    "nurse down": ["nurse down 0"],
+    "nurse up": ["nurse up 0"],
+    "nurse left": ["nurse left 0"]
+  },
+  "meta": {
+    "app": "https://www.codeandweb.com/texturepacker",
+    "version": "1.0",
+    "image": "nurse.png",
+    "format": "RGBA8888",
+    "size": { "w": 62, "h": 357 },
+    "scale": "1",
+    "smartupdate": "$TexturePacker:SmartUpdate:5557b7e19d9ebbe37da896afc66647e9:06746abe52e3e308c567b75de0d3b6b3:729adc6043343cfda41c447ce8f464d6$"
+  }
+}

@@ -3934,18 +3934,18 @@
     "people": [
       {
         "pos": [14, 10],
-        "name": "player",
+        "name": "nurse",
         "orientation": "south"
       },
       {
         "pos": [3, 14],
-        "name": "player",
+        "name": "trainer",
         "orientation": "east",
         "dialogue": "26"
       },
       {
         "pos": [1, 7],
-        "name": "player",
+        "name": "trainer",
         "orientation": "east",
         "inventory": {
           "Ultra Ball": 1200,

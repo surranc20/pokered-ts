@@ -18,15 +18,19 @@ export default class Person extends Mobile {
     gender = "male"
   ) {
     const upTextures =
-      Loader.shared.resources.trainer.spritesheet!.animations[`${name} up`];
+      Loader.shared.resources[name].spritesheet!.animations[`${name} up`];
+
+    if (upTextures?.length == 0) {
+      console.error(`Unable to load textures for ${name}`);
+    }
     super(upTextures, position, cardinality);
 
     this.upTextures = upTextures;
     this.downTextures =
-      Loader.shared.resources.trainer.spritesheet!.animations[`${name} down`];
+      Loader.shared.resources[name].spritesheet!.animations[`${name} down`];
 
     this.leftTextures =
-      Loader.shared.resources.trainer.spritesheet!.animations[`${name} left`];
+      Loader.shared.resources[name].spritesheet!.animations[`${name} left`];
 
     this.personName = name;
     this.isEnemy = isEnemy;

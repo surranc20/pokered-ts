@@ -1,17 +1,16 @@
 import { Cardinality } from "../enums/cardinality";
 import { getPersonPositionFromTileCoords } from "../utils/miscUtils";
+import Nurse from "./nurse";
 import Person from "./person";
 
 export default class PersonFactory {
   static createPersonFromTrainerInfo(info: any) {
-    debugger;
     const position: [number, number] = getPersonPositionFromTileCoords(
       info.pos
     );
     switch (info.name) {
       case "nurse":
-        return new Person(
-          info.name,
+        return new Nurse(
           position,
           Cardinality.getCardinalityFromString(info.orientation)
         );
