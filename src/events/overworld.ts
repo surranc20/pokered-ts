@@ -13,7 +13,11 @@ export default class Overworld extends GameEvent {
 
   onEnter = async () => {
     await useAsyncResourceLoad(
-      new Resources(this.tilesetSheets, [], ["trainer", "nurse"])
+      new Resources(
+        this.tilesetSheets,
+        [],
+        ["trainer", "nurse", "clerk", "guard"]
+      )
     );
 
     this.tileMap = new TileMap("indigo_center");

@@ -1,5 +1,6 @@
 import { Cardinality } from "../enums/cardinality";
 import { getPersonPositionFromTileCoords } from "../utils/miscUtils";
+import Clerk from "./clerk";
 import Nurse from "./nurse";
 import Person from "./person";
 
@@ -15,8 +16,7 @@ export default class PersonFactory {
           Cardinality.getCardinalityFromString(info.orientation)
         );
       case "clerk":
-        return new Person(
-          info.name,
+        return new Clerk(
           position,
           Cardinality.getCardinalityFromString(info.orientation)
         );
