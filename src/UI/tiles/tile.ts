@@ -6,6 +6,8 @@ export default class Tile extends Drawable {
   tilemapRow: number;
   tilemapCol: number;
   isCollidable: boolean;
+  gameObj: any;
+  baseCollidability: boolean;
   constructor(tileInfo: any, tilemapCol: number, tilemapRow: number) {
     const tileset = tileInfo.tileBackground.tileSetName.replace(".png", "");
     const tilesetRow = tileInfo.tileBackground.rowNum;
@@ -26,6 +28,20 @@ export default class Tile extends Drawable {
     ]);
     this.tilemapCol = tilemapCol;
     this.tilemapRow = tilemapRow;
-    this.isCollidable = !!tileInfo.collidable;
+    this.baseCollidability = !!tileInfo.collidable;
+    this.isCollidable = this.baseCollidability;
+    this.gameObj = null;
+  }
+
+  setGameObject(gameObj: any) {
+    console.log("set");
+    this.gameObj = gameObj;
+    this.isCollidable = true;
+  }
+
+  removeGameObject() {
+    console.log("remove");
+    this.gameObj = null;
+    this.isCollidable = this.baseCollidability;
   }
 }

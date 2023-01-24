@@ -46,6 +46,9 @@ export default class TileMap {
       } else {
         this.trainers.set(person.name, person);
       }
+
+      const [tileCol, tileRow] = trainerInfo.pos;
+      this.getTileFromColRow(tileCol, tileRow)!.setGameObject(person);
     }
   }
 
@@ -55,6 +58,8 @@ export default class TileMap {
 
   getAdjacentTiles(tile: Tile) {
     const adjMap = new Map();
+    adjMap.set("current", tile);
+
     const [maxXTile, maxYTile] = this.getMapSize();
 
     for (const [cardinality, offset] of Cardinality.getCardinalityOffsetMap()) {

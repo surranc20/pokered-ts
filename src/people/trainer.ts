@@ -6,6 +6,7 @@ import Tile from "../UI/tiles/tile";
 export default class Trainer extends Person {
   walkingState = WalkingState.STATIONARY;
   tilePixelOffset: number;
+  currentTile: Tile | null = null;
 
   constructor(
     name: string,
@@ -20,7 +21,8 @@ export default class Trainer extends Person {
     this.tilePixelOffset = 0;
   }
 
-  update(_tileAdjacencyMap?: Map<Cardinality, Tile>) {
+  update(tileAdjacencyMap?: Map<Cardinality | String, Tile>) {
+    this.updateCurrentTile(tileAdjacencyMap);
     switch (this.walkingState) {
       case WalkingState.STATIONARY:
         if (this.currentFrame !== 0) {
@@ -46,6 +48,16 @@ export default class Trainer extends Person {
     }
 
     super.update();
+  }
+
+  private updateCurrentTile(
+    tileAdjacencyMap?: Map<Cardinality | String, Tile>
+  ) {
+    if (tileAdjacencyMap?.get("current") !== this.currentTile) {
+      this.currentTile?.removeGameObject();
+      this.currentTile = tileAdjacencyMap!.get("current")!;
+      this.currentTile.setGameObject(this);
+    }
   }
 
   private moveAPixelInCurrentDirection() {
