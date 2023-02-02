@@ -8,6 +8,8 @@ export default class Tile extends Drawable {
   isCollidable: boolean;
   gameObj: any;
   baseCollidability: boolean;
+  foreground: Drawable | null;
+
   constructor(tileInfo: any, tilemapCol: number, tilemapRow: number) {
     const tileset = tileInfo.tileBackground.tileSetName.replace(".png", "");
     const tilesetRow = tileInfo.tileBackground.rowNum;
@@ -26,22 +28,44 @@ export default class Tile extends Drawable {
       tilemapCol * Constants.X_TILE_SIZE,
       tilemapRow * Constants.Y_TILE_SIZE,
     ]);
+
     this.tilemapCol = tilemapCol;
     this.tilemapRow = tilemapRow;
     this.baseCollidability = !!tileInfo.collidable;
     this.isCollidable = this.baseCollidability;
     this.gameObj = null;
+
+    this.foreground = this.getForeground(tileset, tilesetCol, tilesetRow);
   }
 
   setGameObject(gameObj: any) {
-    console.log("set");
     this.gameObj = gameObj;
     this.isCollidable = true;
   }
 
   removeGameObject() {
-    console.log("remove");
     this.gameObj = null;
     this.isCollidable = this.baseCollidability;
+  }
+
+  private getForeground(
+    tileset: String,
+    tilesetCol: String,
+    tilesetRow: String
+  ) {
+    const foregroundTileset = tileset + "_foreground";
+    const foregroundKey = `${tileset}_foreground ${tilesetCol},${tilesetRow}`;
+
+    if (!Loader.shared.resources[foregroundTileset]?.textures![foregroundKey]) {
+      return null;
+    }
+
+    const foregroundTexture =
+      Loader.shared.resources[foregroundTileset].textures![foregroundKey];
+
+    return new Drawable(foregroundTexture, [
+      this.tilemapCol * Constants.X_TILE_SIZE,
+      this.tilemapRow * Constants.Y_TILE_SIZE,
+    ]);
   }
 }

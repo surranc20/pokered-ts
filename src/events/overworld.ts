@@ -24,10 +24,11 @@ export default class Overworld extends GameEvent {
     await this.tileMap.createTileMap();
 
     this.player = Player.getPlayer();
-    this.container.addChild(this.tileMap.backgroundContainer);
 
+    this.container.addChild(this.tileMap.backgroundContainer);
     this.tileMap.addTrainersToContainer(this.container);
     this.container.addChild(this.player);
+    this.container.addChild(this.tileMap.foregroundContainer);
 
     // Setup "camera"
     this.container.pivot.copyFrom(this.player.position);

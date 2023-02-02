@@ -14,42 +14,13 @@ export default class TileMap {
 
   async createTileMap() {
     const levelData = await import(`../../maps/${this.levelName}.json`);
-
-    for (const tileset of levelData.tilesets) {
-      if (!Loader.shared.resources[tileset]) {
-        throw Error(
-          `Cannot create level ${this.levelName} if ${tileset} is not loaded`
-        );
-      }
-    }
+    this.checkIfTexturesLoaded(levelData);
 
     const tileMapArray = levelData.mapArray;
-
-    for (let y = 0; y < tileMapArray.length; y++) {
-      for (let x = 0; x < tileMapArray[0].length; x++) {
-        const tileInfo = tileMapArray[y][x];
-        const tile = new Tile(tileInfo, x, y);
-        this.backgroundContainer.addChild(tile);
-        this.tileLookupMap.set(this.createLookupKeyFromColRow(x, y), tile);
-      }
-    }
+    this.addTilesFromMapArray(tileMapArray);
 
     this.mapDimensions = [tileMapArray[0].length, tileMapArray.length];
     this.addTrainersFromLevelData(levelData);
-  }
-
-  private addTrainersFromLevelData(levelData: any) {
-    for (const [index, trainerInfo] of levelData.mapInfo.people.entries()) {
-      const person = PersonFactory.createPersonFromTrainerInfo(trainerInfo);
-      if (this.trainers.has(person.name)) {
-        this.trainers.set(person.name + index, person);
-      } else {
-        this.trainers.set(person.name, person);
-      }
-
-      const [tileCol, tileRow] = trainerInfo.pos;
-      this.getTileFromColRow(tileCol, tileRow)!.setGameObject(person);
-    }
   }
 
   getTileFromColRow(col: number, row: number) {
@@ -86,13 +57,64 @@ export default class TileMap {
     throw Error("Map not loaded. Can't get map size");
   }
 
-  private createLookupKeyFromColRow(col: number, row: number) {
-    return `${col}, ${row}`;
-  }
-
   addTrainersToContainer(container: Container) {
     for (const [_, trainer] of this.trainers) {
       container.addChild(trainer);
     }
+  }
+
+  private checkIfTexturesLoaded(levelData: any) {
+    for (const tileset of levelData.tilesets) {
+      if (!Loader.shared.resources[tileset]) {
+        throw Error(
+          `Cannot create level ${this.levelName} if ${tileset} is not loaded`
+        );
+      }
+    }
+  }
+
+  private addTilesFromMapArray(tileMapArray: any) {
+    for (let y = 0; y < tileMapArray.length; y++) {
+      for (let x = 0; x < tileMapArray[0].length; x++) {
+        const tileInfo = tileMapArray[y][x];
+        this.addTileFromTileInfo(tileInfo, x, y);
+      }
+    }
+  }
+
+  private addTileFromTileInfo(
+    tileInfo: any,
+    tilemapCol: number,
+    tilemapRow: number
+  ) {
+    const tile = new Tile(tileInfo, tilemapCol, tilemapRow);
+    this.backgroundContainer.addChild(tile);
+
+    if (tile.foreground) {
+      this.foregroundContainer.addChild(tile.foreground);
+    }
+
+    this.tileLookupMap.set(
+      this.createLookupKeyFromColRow(tilemapCol, tilemapRow),
+      tile
+    );
+  }
+
+  private addTrainersFromLevelData(levelData: any) {
+    for (const [index, trainerInfo] of levelData.mapInfo.people.entries()) {
+      const person = PersonFactory.createPersonFromTrainerInfo(trainerInfo);
+      if (this.trainers.has(person.name)) {
+        this.trainers.set(person.name + index, person);
+      } else {
+        this.trainers.set(person.name, person);
+      }
+
+      const [tileCol, tileRow] = trainerInfo.pos;
+      this.getTileFromColRow(tileCol, tileRow)!.setGameObject(person);
+    }
+  }
+
+  private createLookupKeyFromColRow(col: number, row: number) {
+    return `${col}, ${row}`;
   }
 }
