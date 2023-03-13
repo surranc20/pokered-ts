@@ -20,9 +20,9 @@ export default class Overworld extends GameEvent {
       )
     );
 
+    this.container.sortableChildren = true;
     this.tileMap = new TileMap("indigo_center");
     await this.tileMap.createTileMap();
-
     this.player = Player.getPlayer();
 
     this.container.addChild(this.tileMap.backgroundContainer);
@@ -44,6 +44,8 @@ export default class Overworld extends GameEvent {
       this.player.update(adjacentPlayerTiles);
       this.updateCamera();
     }
+
+    this.tileMap?.updateTrainers();
   }
 
   private updateCamera() {

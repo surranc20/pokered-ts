@@ -46,7 +46,7 @@ export default class Trainer extends Person {
         }
         break;
     }
-
+    this.updateZIndex();
     super.update();
   }
 
@@ -76,5 +76,11 @@ export default class Trainer extends Person {
         break;
     }
     this.tilePixelOffset += 1;
+  }
+
+  updateZIndex() {
+    if (this.currentTile) {
+      super.updateZIndex(this.currentTile.tilemapRow);
+    }
   }
 }

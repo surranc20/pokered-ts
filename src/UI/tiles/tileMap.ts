@@ -21,6 +21,9 @@ export default class TileMap {
 
     this.mapDimensions = [tileMapArray[0].length, tileMapArray.length];
     this.addTrainersFromLevelData(levelData);
+
+    // foreground should be drawn on top of all other objs
+    this.foregroundContainer.zIndex = Infinity;
   }
 
   getTileFromColRow(col: number, row: number) {
@@ -60,6 +63,14 @@ export default class TileMap {
   addTrainersToContainer(container: Container) {
     for (const [_, trainer] of this.trainers) {
       container.addChild(trainer);
+      console.log(trainer);
+    }
+  }
+
+  updateTrainers() {
+    for (const [_, trainer] of this.trainers) {
+      //console.log(name, trainer.zIndex);
+      trainer.update();
     }
   }
 
@@ -103,14 +114,15 @@ export default class TileMap {
   private addTrainersFromLevelData(levelData: any) {
     for (const [index, trainerInfo] of levelData.mapInfo.people.entries()) {
       const person = PersonFactory.createPersonFromTrainerInfo(trainerInfo);
-      if (this.trainers.has(person.name)) {
-        this.trainers.set(person.name + index, person);
+      if (this.trainers.has(person.personName)) {
+        this.trainers.set(person.personName + index, person);
       } else {
-        this.trainers.set(person.name, person);
+        this.trainers.set(person.personName, person);
       }
 
       const [tileCol, tileRow] = trainerInfo.pos;
       this.getTileFromColRow(tileCol, tileRow)!.setGameObject(person);
+      person.updateZIndex(tileRow);
     }
   }
 

@@ -36,6 +36,7 @@ export default class Person extends Mobile {
     this.isEnemy = isEnemy;
     this.gender = gender;
 
+    this.animating = false;
     this.setTexturesFromCardinality();
   }
 
@@ -60,5 +61,9 @@ export default class Person extends Mobile {
         break;
     }
     this.getTexture();
+  }
+
+  updateZIndex(tileRowNum: number) {
+    this.zIndex = tileRowNum;
   }
 }
