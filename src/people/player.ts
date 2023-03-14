@@ -2,6 +2,7 @@ import Tile from "../UI/tiles/tile";
 import { Cardinality } from "../enums/cardinality";
 import { Constants } from "../enums/constants";
 import { WalkingState } from "../enums/walkingState";
+import EventStack from "../utils/eventStack";
 import Trainer from "./trainer";
 import Keyboard from "pixi.js-keyboard";
 
@@ -18,6 +19,8 @@ export default class Player extends Trainer {
     "ArrowRight",
   ];
 
+  private static selectKeys = ["Enter"];
+
   private constructor() {
     const [x, y] = [12 * Constants.X_TILE_SIZE, 16 * Constants.Y_TILE_SIZE - 6];
     super("trainer", [x, y], Cardinality.NORTH, false, "male");
@@ -31,6 +34,13 @@ export default class Player extends Trainer {
   }
 
   update(tileAdjacencyMap?: Map<Cardinality, Tile>) {
+    if (Keyboard.isKeyDown(...Player.selectKeys) && tileAdjacencyMap) {
+      const tileAhead = this.getTileAhead(tileAdjacencyMap);
+      if (tileAhead?.gameObj?.getEvent()) {
+        EventStack.getEventStack().pushEvent(tileAhead.gameObj.getEvent());
+      }
+    }
+
     if (Keyboard.isKeyDown(...Player.movementKeys)) {
       switch (this.walkingState) {
         case WalkingState.STATIONARY:
@@ -63,10 +73,14 @@ export default class Player extends Trainer {
   private walkAheadIfClearElsePlayWallSound(
     tileAdjacencyMap: Map<Cardinality, Tile>
   ) {
-    if (!tileAdjacencyMap.get(this.cardinality)?.isCollidable) {
+    if (!this.getTileAhead(tileAdjacencyMap)?.isCollidable) {
       this.walkingState = WalkingState.START_WALKING;
     } else {
       // TODO: Play wall sound. Probably should do some debouncing
     }
+  }
+
+  private getTileAhead(tileAdjacencyMap: Map<Cardinality, Tile>) {
+    return tileAdjacencyMap.get(this.cardinality);
   }
 }

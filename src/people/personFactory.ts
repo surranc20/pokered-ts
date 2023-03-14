@@ -21,11 +21,14 @@ export default class PersonFactory {
           Cardinality.getCardinalityFromString(info.orientation)
         );
       default:
-        return new Person(
+        const trainer = new Person(
           info.name,
           position,
           Cardinality.getCardinalityFromString(info.orientation)
         );
+
+        trainer.dialogueId = info.dialogueId;
+        return trainer;
     }
   }
 }

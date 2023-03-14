@@ -3941,7 +3941,7 @@
         "pos": [3, 14],
         "name": "guard",
         "orientation": "east",
-        "dialogue": "26"
+        "dialogueId": "1"
       },
       {
         "pos": [1, 7],

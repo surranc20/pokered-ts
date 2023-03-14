@@ -63,13 +63,11 @@ export default class TileMap {
   addTrainersToContainer(container: Container) {
     for (const [_, trainer] of this.trainers) {
       container.addChild(trainer);
-      console.log(trainer);
     }
   }
 
   updateTrainers() {
     for (const [_, trainer] of this.trainers) {
-      //console.log(name, trainer.zIndex);
       trainer.update();
     }
   }

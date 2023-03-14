@@ -1,6 +1,7 @@
 import { Loader, Texture } from "pixi.js";
 import Mobile from "../UI/mobile";
 import { Cardinality } from "../enums/cardinality";
+import Dialogue from "../events/dialogues/dialogue";
 
 export default class Person extends Mobile {
   personName: string;
@@ -9,13 +10,15 @@ export default class Person extends Mobile {
   upTextures: Texture[];
   downTextures: Texture[];
   leftTextures: Texture[];
+  dialogueId: number | undefined;
 
   constructor(
     name: string,
     position: [number, number],
     cardinality: Cardinality,
     isEnemy = true,
-    gender = "male"
+    gender = "male",
+    dialogueId?: number
   ) {
     const upTextures =
       Loader.shared.resources[name].spritesheet!.animations[`${name} up`];
@@ -35,6 +38,7 @@ export default class Person extends Mobile {
     this.personName = name;
     this.isEnemy = isEnemy;
     this.gender = gender;
+    this.dialogueId = dialogueId;
 
     this.animating = false;
     this.setTexturesFromCardinality();
@@ -65,5 +69,11 @@ export default class Person extends Mobile {
 
   updateZIndex(tileRowNum: number) {
     this.zIndex = tileRowNum;
+  }
+
+  getEvent() {
+    if (this.dialogueId) {
+      return new Dialogue(this.dialogueId, this, 0);
+    }
   }
 }

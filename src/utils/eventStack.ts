@@ -9,9 +9,9 @@ export default class EventStack {
     this.stack = [];
   }
 
-  public static getEventStack(container: Container) {
+  public static getEventStack(container?: Container) {
     if (!EventStack.instance) {
-      EventStack.instance = new EventStack(container);
+      EventStack.instance = new EventStack(container!);
     }
     return EventStack.instance;
   }
