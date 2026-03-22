@@ -8,6 +8,7 @@ export const useAsyncResourceLoad = async (resources: Resources) => {
     loadSpritesheets(resources);
     loadTilesets(resources);
     loadTrainers(resources);
+    loadImages(resources);
 
     loader.load();
     loader.onComplete.add(() => resolve());
@@ -44,6 +45,16 @@ const loadTrainers = (resources: Resources) => {
 
   for (const trainerName of resources.trainers) {
     loader.add(trainerName, `assets/trainers/${trainerName}.json`);
+  }
+};
+
+const loadImages = (resources: Resources) => {
+  const loader = Loader.shared;
+
+  for (const imageName of resources.images) {
+    if (!loader.resources[imageName]) {
+      loader.add(imageName, `assets/${imageName}.png`);
+    }
   }
 };
 

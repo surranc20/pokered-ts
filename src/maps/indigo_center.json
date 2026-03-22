@@ -3933,18 +3933,28 @@
     "name": "indigo_plateu",
     "people": [
       {
-        "pos": [14, 10],
+        "pos": [
+          14,
+          10
+        ],
         "name": "nurse",
-        "orientation": "south"
+        "orientation": "south",
+        "dialogueId": 2
       },
       {
-        "pos": [3, 14],
+        "pos": [
+          3,
+          14
+        ],
         "name": "guard",
         "orientation": "east",
         "dialogueId": "1"
       },
       {
-        "pos": [1, 7],
+        "pos": [
+          1,
+          7
+        ],
         "name": "clerk",
         "orientation": "east",
         "inventory": {
@@ -3955,9 +3965,13 @@
           "Revive": 1500,
           "Full Heal": 600,
           "Max Repel": 700
-        }
+        },
+        "dialogueId": 3
       }
     ]
   },
-  "tilesets": ["tileset_12", "tileset_14"]
+  "tilesets": [
+    "tileset_12",
+    "tileset_14"
+  ]
 }

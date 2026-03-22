@@ -13,12 +13,14 @@ export default class PersonFactory {
       case "nurse":
         return new Nurse(
           position,
-          Cardinality.getCardinalityFromString(info.orientation)
+          Cardinality.getCardinalityFromString(info.orientation),
+          info.dialogueId
         );
       case "clerk":
         return new Clerk(
           position,
-          Cardinality.getCardinalityFromString(info.orientation)
+          Cardinality.getCardinalityFromString(info.orientation),
+          info.dialogueId
         );
       default:
         const trainer = new Person(

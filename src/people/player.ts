@@ -22,8 +22,7 @@ export default class Player extends Trainer {
   private static selectKeys = ["Enter"];
 
   private constructor() {
-    const [x, y] = [12 * Constants.X_TILE_SIZE, 16 * Constants.Y_TILE_SIZE - 6];
-    super("trainer", [x, y], Cardinality.NORTH, false, "male");
+    super("trainer", [12 * Constants.X_TILE_SIZE, 16 * Constants.Y_TILE_SIZE - 6], Cardinality.NORTH, false, "male");
   }
 
   public static getPlayer(): Player {
@@ -33,11 +32,19 @@ export default class Player extends Trainer {
     return Player.instance;
   }
 
+  private enterReleased = true;
+
   update(tileAdjacencyMap?: Map<Cardinality, Tile>) {
-    if (Keyboard.isKeyDown(...Player.selectKeys) && tileAdjacencyMap) {
+    if (!Keyboard.isKeyDown(...Player.selectKeys)) {
+      this.enterReleased = true;
+    }
+
+    if (this.enterReleased && Keyboard.isKeyDown(...Player.selectKeys) && tileAdjacencyMap && this.walkingState === WalkingState.STATIONARY) {
+      this.enterReleased = false;
       const tileAhead = this.getTileAhead(tileAdjacencyMap);
-      if (tileAhead?.gameObj?.getEvent()) {
-        EventStack.getEventStack().pushEvent(tileAhead.gameObj.getEvent());
+      const event = tileAhead?.gameObj?.getEvent(this.cardinality);
+      if (event) {
+        EventStack.getEventStack().pushEvent(event);
       }
     }
 

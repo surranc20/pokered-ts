@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(identify \"/Users/chris/Desktop/Surran Programs/pokered-ts/pokered/pokered/images/dialog_boxes.png\")"
+    ]
+  }
+}

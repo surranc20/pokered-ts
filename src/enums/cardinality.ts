@@ -22,4 +22,13 @@ export namespace Cardinality {
       cardinalityString.toUpperCase() as keyof typeof Cardinality
     ] as Cardinality;
   }
+
+  export function getOpposite(c: Cardinality): Cardinality {
+    switch (c) {
+      case Cardinality.NORTH: return Cardinality.SOUTH;
+      case Cardinality.SOUTH: return Cardinality.NORTH;
+      case Cardinality.EAST:  return Cardinality.WEST;
+      case Cardinality.WEST:  return Cardinality.EAST;
+    }
+  }
 }

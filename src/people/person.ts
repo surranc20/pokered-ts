@@ -71,9 +71,11 @@ export default class Person extends Mobile {
     this.zIndex = tileRowNum;
   }
 
-  getEvent() {
+  getEvent(playerCardinality: Cardinality) {
     if (this.dialogueId) {
-      return new Dialogue(this.dialogueId, this, 0);
+      this.cardinality = Cardinality.getOpposite(playerCardinality);
+      this.setTexturesFromCardinality();
+      return new Dialogue(this.dialogueId, this.gender);
     }
   }
 }

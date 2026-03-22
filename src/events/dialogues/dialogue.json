@@ -4,6 +4,19 @@
       "My developer is lazy and has not finished the renovation upstairs.",
       "Come back later."
     ],
-    "preBattle": true
+    "preBattle": false
+  },
+  "2": {
+    "lines": [
+      "Welcome to our POKéMON CENTER!",
+      "Would you like me to heal your POKéMON back to perfect health?"
+    ],
+    "preBattle": false
+  },
+  "3": {
+    "lines": [
+      "Hi there! How may I help you?"
+    ],
+    "preBattle": false
   }
 }
